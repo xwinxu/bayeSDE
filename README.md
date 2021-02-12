@@ -45,7 +45,7 @@ Augment the inputs by a custom amount `--aug <integer>`, set the number of sampl
 If memory constraints pose a problem, train in gradient accumulation mode: `--acc_grad` and gradient checkpointing: `--remat`. 
 
 <p align="center">
-<img align="middle" src="./assets/toy_sdebnn.pdf" width="500" />
+<img align="middle" src="./assets/toy_sdebnn.png" width="500" />
 </p>
 
 ### Usage
