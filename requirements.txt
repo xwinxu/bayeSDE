@@ -4,3 +4,4 @@ jaxlib==0.1.60+cuda110
 torch==1.6.0
 tensorflow==2.4.0
 torchsde==0.2.4
+tqdm==4.19.6

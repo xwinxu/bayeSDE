@@ -1,15 +1,16 @@
 # Infinitely Deep Bayesian Neural Networks with SDEs
 
 This library contains JAX and Pytorch implementations of neural ODEs and Bayesian layers for stochastic variational inference. 
-A rudimentary JAX implementation of differentiable SDE solvers is also provided, refer to [torchsde](https://github.com/google-research/torchsde) 
-for a full set of differentiable SDE solvers in Pytorch and similarly to [torchdiffeq](https://github.com/rtqichen/torchdiffeq) for differentiable ODE solvers.
+A rudimentary JAX implementation of differentiable SDE solvers is also provided, refer to [torchsde](https://github.com/google-research/torchsde) [2]
+for a full set of differentiable SDE solvers in Pytorch and similarly to [torchdiffeq](https://github.com/rtqichen/torchdiffeq) [3] for differentiable ODE solvers.
 
 <p align="center">
-<img align="middle" src="./assets/multimodal.gif" width="500" />
+<img align="middle" src="./assets/sdebnn_dynamics.png" width="500" />
+<figcaption>Continuous-depth hidden unit trajectories in Neural ODE vs uncertain posterior dynamics SDE-BNN.</figcaption>
 </p>
 
 ## Installation
-To run code, execute:
+This library runs on `jax==0.1.77` and `torch==1.6.0`. To install all other requirements:
 ```
 pip install -r requirements.txt
 ```
@@ -47,6 +48,7 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 
 <p align="center">
 <img align="middle" src="./assets/toy_sdebnn.png" width="500" />
+<figcaption>Samples from SDEBNN-learned predictive prior and posterior density distributions.</figcaption>
 </p>
 
 ### Usage
@@ -57,7 +59,7 @@ All examples can be swapped in with different vision datasets and includes tenso
 python examples/jax/sdebnn_toy1d.py
 ```
 
-#### Robust Image Classification:
+#### Image Classification:
 To train an SDEBNN model:
 ```
 python examples/jax/sdebnn_classification.py --output <output directory> --model sdenet --aug 2 --nblocks 2-2-2 --diff_coef 0.2 --fx_dim 64 --fw_dims 2-64-2 --nsteps 20 --nsamples 1
@@ -74,8 +76,12 @@ All examples can be swapped in with different vision datasets and includes tenso
 ```
 python examples/torch/sdebnn_toy1d.py --output_dir <dst_path> --ds b40gap --diff_const 0.2 --prior_dw ou --num_samples 100 --stl
 ```
+<p align="center">
+<img align="middle" src="./assets/multimodal.gif" width="500" />
+<figcaption>Arbitrarily expression approximate posteriors from learning non-Gaussian marginals.</figcaption>
+</p>
 
-#### Robust Image Classification:
+#### Image Classification:
 All hyperparameters can be found in the training script.
 ```
 python examples/torch/sdebnn_classification.py --train-dir <output directory> --data cifar10 --dt 0.05 --method midpoint --adjoint True
@@ -85,6 +91,6 @@ python examples/torch/sdebnn_classification.py --train-dir <output directory> --
 ## References
 [1] Winnie Xu, Ricky T. Q. Chen, Xuechen Li, David Duvenaud. "Infinitely Deep Bayesian Neural Networks with Stochastic Differential Equations." *Preprint* 2021. [[arxiv]]()
 
-[2] Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, David Duvenaud. "Neural Ordinary Differential Equations." *NeurIPS.* 2018. [[arxiv]](https://arxiv.org/abs/1806.07366)
+[2] Xuechen Li, Ting-Kam Leonard Wong, Ricky T. Q. Chen, David Duvenaud. "Scalable Gradients for Stochastic Differential Equations." *AISTATS* 2020. [[arxiv]](https://arxiv.org/abs/2001.01328)
 
-[3] Xuechen Li, Ting-Kam Leonard Wong, Ricky T. Q. Chen, David Duvenaud. "Scalable Gradients for Stochastic Differential Equations." *AISTATS* 2020. [[arxiv]](https://arxiv.org/abs/2001.01328)
+[3] Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, David Duvenaud. "Neural Ordinary Differential Equations." *NeurIPS.* 2018. [[arxiv]](https://arxiv.org/abs/1806.07366)
