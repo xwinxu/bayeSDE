@@ -6,8 +6,9 @@ for a full set of differentiable SDE solvers in Pytorch and similarly to [torchd
 
 <p align="center">
 <img align="middle" src="./assets/sdebnn_dynamics.png" width="500" />
-<figcaption>Continuous-depth hidden unit trajectories in Neural ODE vs uncertain posterior dynamics SDE-BNN.</figcaption>
 </p>
+
+> Continuous-depth hidden unit trajectories in Neural ODE vs uncertain posterior dynamics SDE-BNN.
 
 ## Installation
 This library runs on `jax==0.1.77` and `torch==1.6.0`. To install all other requirements:
@@ -50,7 +51,8 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 <img align="middle" src="./assets/toy_sdebnn.png" width="500" />
 <!-- <figcaption>Samples from SDEBNN-learned predictive prior and posterior density distributions.</figcaption> -->
 </p>
-<center>Samples from SDEBNN-learned predictive prior and posterior density distributions.</center>
+
+> Samples from SDEBNN-learned predictive prior and posterior density distributions.
 
 ### Usage
 All examples can be swapped in with different vision datasets and includes tensorboard logging for critical metrics.
@@ -79,8 +81,9 @@ python examples/torch/sdebnn_toy1d.py --output_dir <dst_path>
 ```
 <p align="center">
 <img align="middle" src="./assets/multimodal.gif" width="500" />
-<figcaption>Arbitrarily expression approximate posteriors from learning non-Gaussian marginals.</figcaption>
 </p>
+
+> Arbitrarily expression approximate posteriors from learning non-Gaussian marginals.
 
 #### Image Classification:
 All hyperparameters can be found in the training script. Train with adjoint for memory efficient backpropagation and adaptive mode for adaptive computation.
