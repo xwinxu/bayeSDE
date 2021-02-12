@@ -8,7 +8,7 @@ import sys
 import matplotlib._color_data as mcd
 import matplotlib.pyplot as plt
 import numpy as np
-import torchsde.diffeq_layers as diffeq_layers
+import torchbnn._impl.diffeq_layers as diffeq_layers
 
 import torch
 import torch.nn as nn
@@ -86,7 +86,7 @@ def random_seed_torch(seed):
 
 if __name__ == "__main__":
     output_dir = sys.argv[1]
-    os.makedirs(f"/checkpoint/winniexu/{output_dir}", exist_ok=True)
+    os.makedirs(f"{output_dir}", exist_ok=True)
 
     torch.manual_seed(0)
 
@@ -127,6 +127,5 @@ if __name__ == "__main__":
         elbo.mul(-1.0).backward()
         optimizer.step()
 
-        # if itr % 5 == 0 or itr + 1 == 1000:
         if itr == 0 or itr == 55:
             print(itr, elbo.item())
