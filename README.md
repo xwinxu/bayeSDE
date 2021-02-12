@@ -2,18 +2,22 @@
 
 This library contains JAX and Pytorch implementations of neural ODEs and Bayesian layers for stochastic variational inference. 
 A rudimentary JAX implementation of differentiable SDE solvers is also provided, refer to [torchsde](https://github.com/google-research/torchsde) 
-for a full set of differentiable SDE solvers in Pytorch.
+for a full set of differentiable SDE solvers in Pytorch and similarly to [torchdiffeq](https://github.com/rtqichen/torchdiffeq) for differentiable ODE solvers.
+
+<p align="center">
+<img align="middle" src="./assets/multimodal.gif" width="500" />
+</p>
 
 ## Installation
 To run code, execute:
 ```
 pip install -r requirements.txt
 ```
-_Note_: Package version may change, refer to each package's official page for installation instructions.
+_Note_: Package versions may change, refer to official JAX installation instructions [here](https://github.com/google/jax#installation).
 
 ## JaxSDE: Differentiable SDE Solvers in JAX
 The `jaxsde` library contains SDE solvers in the Ito and Stratonovich form. 
-Different solvers can be specified with the following `method={euler_maruyama|milstein|euler_heun}`. 
+Solvers of different orders can be specified with the following `method={euler_maruyama|milstein|euler_heun}` (orders 1|1.5|2). 
 Stochastic adjoint (`sdeint_ito`) training mode does not work efficiently yet, use `sdeint_ito_fixed_grid` for now.
 
 ### Usage
@@ -39,6 +43,10 @@ Our SDE Bayesian layers can be used with the `SDEBNN` block composed with multip
 Sticking-the-landing (STL) trick can be enabled during training with `--stl` for improving convergence rate.
 Augment the inputs by a custom amount `--aug <integer>`, set the number of samples averaged over with `--nsamples <integer>`.
 If memory constraints pose a problem, train in gradient accumulation mode: `--acc_grad` and gradient checkpointing: `--remat`. 
+
+<p align="center">
+<img align="middle" src="./assets/toy_sdebnn.pdf" width="500" />
+</p>
 
 ### Usage
 All examples can be swapped in with different vision datasets and includes tensorboard logging for critical metrics.
@@ -74,4 +82,6 @@ python examples/torch/sdebnn_classification.py --train-dir <output directory> --
 ```
 
 ## References
-TBA
+[1] Winnie Xu, Ricky T. Q. Chen, Xuechen Li, David Duvenaud. "Infinitely Deep Bayesian Neural Networks with Stochastic Differential Equations." *Preprint* 2021. [[arxiv]]()
+[2] Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, David Duvenaud. "Neural Ordinary Differential Equations." *NeurIPS.* 2018. [[arxiv]](https://arxiv.org/abs/1806.07366)
+[3] Xuechen Li, Ting-Kam Leonard Wong, Ricky T. Q. Chen, David Duvenaud. "Scalable Gradients for Stochastic Differential Equations." *AISTATS* 2020. [[arxiv]](https://arxiv.org/abs/2001.01328)
