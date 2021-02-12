@@ -7,9 +7,9 @@ import os
 import pickle
 import time
 from functools import partial
+from pathlib import Path
 
 import numpy as np
-import Path
 from brax._impl import arch, brax
 from brax._impl.resnet import resnet32v2
 from brax.utils import utils
