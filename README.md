@@ -93,3 +93,15 @@ python examples/torch/sdebnn_classification.py --train-dir <output directory> --
 [2] Xuechen Li, Ting-Kam Leonard Wong, Ricky T. Q. Chen, David Duvenaud. "Scalable Gradients for Stochastic Differential Equations." *AISTATS* 2020. [[arxiv]](https://arxiv.org/abs/2001.01328)
 
 [3] Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, David Duvenaud. "Neural Ordinary Differential Equations." *NeurIPS.* 2018. [[arxiv]](https://arxiv.org/abs/1806.07366)
+
+---
+
+If you found this library useful in your research, please consider citing
+```
+@article{xu2021sdebnn,
+  title={Infinitely Deep Bayesian Neural Networks with Stochastic Differential Equations},
+  author={Xu, Winnie and Chen, Ricky T. Q. and Li, Xuechen and Duvenaud, David},
+  archivePrefix = {arXiv},
+  year={2021}
+}
+```
