@@ -48,7 +48,7 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 
 <p align="center">
 <img align="middle" src="./assets/toy_sdebnn.png" width="500" />
-<figcaption>Samples from SDEBNN-learned predictive prior and posterior density distributions.</figcaption>
+<figcaption class="figure-caption text-center">Samples from SDEBNN-learned predictive prior and posterior density distributions.</figcaption>
 </p>
 
 ### Usage
