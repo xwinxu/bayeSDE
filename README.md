@@ -48,8 +48,9 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 
 <p align="center">
 <img align="middle" src="./assets/toy_sdebnn.png" width="500" />
-<figcaption class="figure-caption text-center">Samples from SDEBNN-learned predictive prior and posterior density distributions.</figcaption>
+<!-- <figcaption>Samples from SDEBNN-learned predictive prior and posterior density distributions.</figcaption> -->
 </p>
+<center>Samples from SDEBNN-learned predictive prior and posterior density distributions.</center>
 
 ### Usage
 All examples can be swapped in with different vision datasets and includes tensorboard logging for critical metrics.
