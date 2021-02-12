@@ -7,7 +7,7 @@ from jax.flatten_util import ravel_pytree
 from jax import tree_util
 from jax.lax import stop_gradient
 
-from arch import Layer, build_fx
+from brax._impl.arch import Layer, build_fx
 from jaxsde.jaxsde.sdeint import sdeint_ito_fixed_grid, sdeint_ito
 
 

@@ -248,6 +248,7 @@ if __name__ == "__main__":
     itercount = itertools.count()
     print("\nStarting training...", flush=True)
     for epoch in range(args.epochs):
+        itr = itercount.__reduce__()[1][0]
         print(f"Epoch {epoch} | Iteration: {itr}")
         start_time = time.time()
         gradstd_meter = utils.AverageMeter()

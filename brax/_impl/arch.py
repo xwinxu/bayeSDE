@@ -4,7 +4,7 @@ import jax.numpy as jnp
 from jax.experimental import stax
 from jax.nn.initializers import zeros
 
-import diffeq_layers as dq
+import brax._impl.diffeq_layers as dq
 
 
 class Layer(collections.namedtuple('Layer', 'init, apply')):
@@ -31,7 +31,7 @@ def Swish_(out_dim, beta_init=0.5):
 Rbf = stax.elementwise(lambda x: jnp.exp(-x ** 2))
 ACTFNS = {"softplus": stax.Softplus, "tanh": stax.Tanh, "elu": stax.Elu, "rbf": Rbf, "swish": Swish_}
 
-def MLP(hidden_dims=[1, 64, 1], actfn="softplus", xt=False, ou_dw=False):
+def MLP(hidden_dims=[1, 64, 1], actfn="softplus", xt=False, ou_dw=False, p_scale=-1.0, nonzero_w=-1.0, nonzero_b=-1.0):
 
     def make_layer(input_shape):
         _actfn = ACTFNS[actfn]
@@ -47,11 +47,23 @@ def MLP(hidden_dims=[1, 64, 1], actfn="softplus", xt=False, ou_dw=False):
                 layers.append(_actfn)
             if actfn == "swish": # reset for next output shape
                 _actfn = ACTFNS[actfn]
-        # Zero init last layer.
-        if xt:
-            layers.append(dq.ConcatSquashLinear(input_shape[-1], W_init=zeros, b_init=zeros))
+        # Zero init last layer unless otherwise specified.
+        W_init = b_init = zeros
+        if nonzero_w != -1.0:
+            print(f"he_normal w init scaled by {nonzero_w}")
+            W_init = he_normal(scale_by=nonzero_w)
+        if nonzero_b != -1.0:
+            print(f"normal b init scaled by {nonzero_b}")
+            b_init = normal(scale_by=nonzero_b)
+        if xt: # time dependent
+            layers.append(dq.ConcatSquashLinear(input_shape[-1], W_init=W_init, b_init=b_init))
         else:
-            layers.append(stax.Dense(input_shape[-1], W_init=zeros, b_init=zeros))
+            layers.append(stax.Dense(input_shape[-1], W_init=W_init, b_init=b_init))
+        # scale output of final drift linear layer to balance out with diffusion
+        if p_scale != -1.0 and xt: # this only works for our time dependent layers for now...
+            print(f"drift layer output scaled by exp({p_scale})")
+            exp_scale = Exp(input_shape[-1], p_init=p_scale)
+            layers.append(dq.DiffEqWrapper(exp_scale))
         return stax.serial(*layers)
 
     _layer = dq.shape_dependent(make_layer) if xt else stax.shape_dependent(make_layer)
@@ -59,7 +71,6 @@ def MLP(hidden_dims=[1, 64, 1], actfn="softplus", xt=False, ou_dw=False):
         ou_prior = dq.DiffEqWrapper(Affine(-1, 0.))
         _layer = Additive(ou_prior, _layer)
     layer = Layer(*_layer)
-    # layer = Layer(*dq.shape_dependent(make_layer)) if xt else Layer(*stax.shape_dependent(make_layer))
     return layer
 
 def Affine(mult=0., const=1e-3):
