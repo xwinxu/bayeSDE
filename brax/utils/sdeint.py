@@ -16,12 +16,12 @@ def _sdeint(f, g, s_init, bm_dim, ts, rng):
     bm_w = bm[:bm_dim]
     f_out = f(t0, curr_state, bm_w)
     g_out = g(t0, curr_state)
-    diffusion = np.sqrt(h) * bm * g_out
+    diffusion = jnp.sqrt(h) * bm * g_out
     curr_state = curr_state + h * f_out + diffusion
     carry['curr_state'] = curr_state
     return carry, None
 
-  xs = np.concatenate([ts[:-1][..., np.newaxis], ts[1:][..., np.newaxis], rngs], axis=-1)
+  xs = jnp.concatenate([ts[:-1][..., jnp.newaxis], ts[1:][..., jnp.newaxis], rngs], axis=-1)
   final_state, _ = lax.scan(f_scan, dict(curr_state=s_init), xs)
 
   return final_state['curr_state']
