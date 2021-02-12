@@ -56,7 +56,7 @@ All examples can be swapped in with different vision datasets and includes tenso
 
 #### Toy 1D regression to learn complex posteriors:
 ```
-python examples/jax/sdebnn_toy1d.py
+python examples/jax/sdebnn_toy1d.py --ds cos --activn swish --loss laplace --kl_scale 1. --diff_const 0.2 --driftw_scale 0.1 --aug_dim 2 --stl --prior_dw ou
 ```
 
 #### Image Classification:
@@ -74,7 +74,7 @@ All examples can be swapped in with different vision datasets and includes tenso
 
 #### Toy 1D regression to learn multi-modal posterior:
 ```
-python examples/torch/sdebnn_toy1d.py --output_dir <dst_path> --ds b40gap --diff_const 0.2 --prior_dw ou --num_samples 100 --stl
+python examples/torch/sdebnn_toy1d.py --output_dir <dst_path>
 ```
 <p align="center">
 <img align="middle" src="./assets/multimodal.gif" width="500" />
@@ -82,10 +82,9 @@ python examples/torch/sdebnn_toy1d.py --output_dir <dst_path> --ds b40gap --diff
 </p>
 
 #### Image Classification:
-All hyperparameters can be found in the training script.
+All hyperparameters can be found in the training script. Train with adjoint for memory efficient backpropagation and adaptive mode for adaptive computation.
 ```
-python examples/torch/sdebnn_classification.py --train-dir <output directory> --data cifar10 --dt 0.05 --method midpoint --adjoint True
---inhomogeneous True
+python examples/torch/sdebnn_classification.py --train-dir <output directory> --data cifar10 --dt 0.05 --method midpoint --adjoint True --adaptive True --adjoint_adaptive True --inhomogeneous True
 ```
 
 ## References
