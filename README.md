@@ -19,6 +19,7 @@ _Note_: Package versions may change, refer to official JAX installation instruct
 The `jaxsde` library contains SDE solvers in the Ito and Stratonovich form. 
 Solvers of different orders can be specified with the following `method={euler_maruyama|milstein|euler_heun}` (orders 1|1.5|2). 
 Stochastic adjoint (`sdeint_ito`) training mode does not work efficiently yet, use `sdeint_ito_fixed_grid` for now.
+Tradeoff solver speed for precision during training or inference by adjusting `--nsteps <# steps>`.
 
 ### Usage
 Default solver:
@@ -56,7 +57,7 @@ All examples can be swapped in with different vision datasets and includes tenso
 python examples/jax/sdebnn_toy1d.py
 ```
 
-#### Image Classification:
+#### Robust Image Classification:
 To train an SDEBNN model:
 ```
 python examples/jax/sdebnn_classification.py --output <output directory> --model sdenet --aug 2 --nblocks 2-2-2 --diff_coef 0.2 --fx_dim 64 --fw_dims 2-64-2 --nsteps 20 --nsamples 1
@@ -74,7 +75,7 @@ All examples can be swapped in with different vision datasets and includes tenso
 python examples/torch/sdebnn_toy1d.py --output_dir <dst_path> --ds b40gap --diff_const 0.2 --prior_dw ou --num_samples 100 --stl
 ```
 
-#### Image Classification:
+#### Robust Image Classification:
 All hyperparameters can be found in the training script.
 ```
 python examples/torch/sdebnn_classification.py --train-dir <output directory> --data cifar10 --dt 0.05 --method midpoint --adjoint True
