@@ -69,7 +69,7 @@ python examples/jax/sdebnn_classification.py --output <output directory> --model
 ```
 To train a ResNet baseline, specify `--model resnet` and for a Bayesian ResNet baseline, specify `--meanfield_sdebnn`.
 
-## Torchsde: SDE-BNN in Pytorch
+## TorchBNN: SDE-BNN in Pytorch
 A PyTorch implementation of the Brax framework powered by the [torchsde](https://github.com/google-research/torchsde) backend.
 
 ### Usage
