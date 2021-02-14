@@ -5,7 +5,7 @@ A rudimentary JAX implementation of differentiable SDE solvers is also provided,
 for a full set of differentiable SDE solvers in Pytorch and similarly to [torchdiffeq](https://github.com/rtqichen/torchdiffeq) [3] for differentiable ODE solvers.
 
 <p align="center">
-<img align="middle" src="./assets/sdebnn_dynamics.png" width="500" />
+<img align="middle" src="./assets/dynamics.gif" width="500" />
 </p>
 
 > Continuous-depth hidden unit trajectories in Neural ODE vs uncertain posterior dynamics SDE-BNN.
