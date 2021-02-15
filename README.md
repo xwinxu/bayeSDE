@@ -19,7 +19,7 @@ _Note_: Package versions may change, refer to official JAX installation instruct
 
 ## JaxSDE: Differentiable SDE Solvers in JAX
 The `jaxsde` library contains SDE solvers in the Ito and Stratonovich form. 
-Solvers of different orders can be specified with the following `method={euler_maruyama|milstein|euler_heun}` (orders 1|1.5|2). 
+Solvers of different orders can be specified with the following `method={euler_maruyama|milstein|euler_heun}` (strong orders 0.5|1|0.5 and orders 1|1|1 in the case of an additive noise SDE). 
 Stochastic adjoint (`sdeint_ito`) training mode does not work efficiently yet, use `sdeint_ito_fixed_grid` for now.
 Tradeoff solver speed for precision during training or inference by adjusting `--nsteps <# steps>`.
 
