@@ -55,7 +55,7 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 > Samples from SDEBNN-learned predictive prior and posterior density distributions.
 
 ### Usage
-All examples can be swapped in with different vision datasets and includes tensorboard logging for critical metrics.
+All examples can be swapped in with different vision datasets. For better readability, tensorboard logging has been excluded (see `torchbnn` instead).
 
 #### Toy 1D regression to learn complex posteriors:
 ```
@@ -86,7 +86,7 @@ python examples/torch/sdebnn_toy1d.py --output_dir <dst_path>
 > Arbitrarily expression approximate posteriors from learning non-Gaussian marginals.
 
 #### Image Classification:
-All hyperparameters can be found in the training script. Train with adjoint for memory efficient backpropagation and adaptive mode for adaptive computation.
+All hyperparameters can be found in the training script. Train with adjoint for memory efficient backpropagation and adaptive mode for adaptive computation (and ensure `--adjoint_adaptive True` if training with adjoint and adaptive modes).
 ```
 python examples/torch/sdebnn_classification.py --train-dir <output directory> --data cifar10 --dt 0.05 --method midpoint --adjoint True --adaptive True --adjoint_adaptive True --inhomogeneous True
 ```
