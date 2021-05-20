@@ -28,8 +28,8 @@ def SDEBNN(fx_block_type, fx_dim, fx_actfn, fw, diff_coef=1e-4, name="sdebnn", s
         w_shape = flat_w.shape
         del tmp_w
 
-        x_dim = int(jnp.prod(jnp.array(x_shape)))
-        w_dim = int(jnp.prod(jnp.array(w_shape)))
+        x_dim = np.abs(np.prod(x_shape))
+        w_dim = np.abs(np.prod(w_shape))
 
         def f_aug(y, t, args):
             x = y[:x_dim].reshape(x_shape)
