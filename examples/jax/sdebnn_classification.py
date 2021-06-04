@@ -131,6 +131,8 @@ if __name__ == "__main__":
     parser.add_argument("--remat", action="store_true")
     parser.add_argument("--ema", type=float, default=0.999)
     parser.add_argument("--meanfield_sdebnn", action="store_true")
+    parser.add_argument("--infer_w0", action="store_true", help="don't learn w0 initial state, infer initial with Gaussian variational dist'n")
+    parser.add_argument("--w0_prior_std", type=float, default=0.1, help="initial w0 state prior std")
 
     parser.add_argument("--disable_test", action="store_true")
     parser.add_argument("--verbose", action="store_true")
@@ -186,8 +188,10 @@ if __name__ == "__main__":
                                               nsteps=args.nsteps,
                                               remat=args.remat,
                                               w_drift=not args.no_drift,
-                                              stax_api=True))
-                               for _ in range(nb)])
+                                              stax_api=True,
+                                              infer_initial_state=args.infer_w0,
+                                              initial_state_prior_std=args.w0_prior_std)) for _ in range(nb)
+                )]
             else:
                 layers.extend([brax.SDEBNN(args.block_type,
                                            args.fx_dim,
@@ -198,8 +202,10 @@ if __name__ == "__main__":
                                            xt=args.no_xt,
                                            nsteps=args.nsteps,
                                            remat=args.remat,
-                                           w_drift=not args.no_drift)
-                               for _ in range(nb)])
+                                           w_drift=not args.no_drift,
+                                           infer_initial_state=args.infer_w0,
+                                           initial_state_prior_std=args.w0_prior_std) for _ in range(nb)
+                ])
             if i < len(nblocks) - 1:
                 layers.append(mf(arch.SqueezeDownsample(2)))
         layers.append(mf(stax.serial(stax.Flatten, stax.Dense(10), stax.LogSoftmax)))
