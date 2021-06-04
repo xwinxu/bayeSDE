@@ -5,7 +5,7 @@ A rudimentary JAX implementation of differentiable SDE solvers is also provided,
 for a full set of differentiable SDE solvers in Pytorch and similarly to [torchdiffeq](https://github.com/rtqichen/torchdiffeq) [3] for differentiable ODE solvers.
 
 <p align="center">
-<img align="middle" src="./assets/sdebnn_dynamics.png" width="500" />
+<img align="middle" src="./assets/dynamics.gif" width="500" />
 </p>
 
 > Continuous-depth hidden unit trajectories in Neural ODE vs uncertain posterior dynamics SDE-BNN.
@@ -19,9 +19,9 @@ _Note_: Package versions may change, refer to official JAX installation instruct
 
 ## JaxSDE: Differentiable SDE Solvers in JAX
 The `jaxsde` library contains SDE solvers in the Ito and Stratonovich form. 
-Solvers of different orders can be specified with the following `method={euler_maruyama|milstein|euler_heun}` (orders 1|1.5|2). 
+Solvers of different orders can be specified with the following `method={euler_maruyama|milstein|euler_heun}` (strong orders 0.5|1|0.5 and orders 1|1|1 in the case of an additive noise SDE). 
 Stochastic adjoint (`sdeint_ito`) training mode does not work efficiently yet, use `sdeint_ito_fixed_grid` for now.
-Tradeoff solver speed for precision during training or inference by adjusting `--nsteps <# steps>`.
+Trade off solver speed for precision during training or inference by adjusting `--nsteps <# steps>`.
 
 ### Usage
 Default solver:
@@ -55,7 +55,7 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 > Samples from SDEBNN-learned predictive prior and posterior density distributions.
 
 ### Usage
-All examples can be swapped in with different vision datasets and includes tensorboard logging for critical metrics.
+All examples can be swapped in with different vision datasets. For better readability, tensorboard logging has been excluded (see `torchbnn` instead).
 
 #### Toy 1D regression to learn complex posteriors:
 ```
@@ -69,7 +69,7 @@ python examples/jax/sdebnn_classification.py --output <output directory> --model
 ```
 To train a ResNet baseline, specify `--model resnet` and for a Bayesian ResNet baseline, specify `--meanfield_sdebnn`.
 
-## Torchsde: SDE-BNN in Pytorch
+## TorchBNN: SDE-BNN in Pytorch
 A PyTorch implementation of the Brax framework powered by the [torchsde](https://github.com/google-research/torchsde) backend.
 
 ### Usage
@@ -86,13 +86,13 @@ python examples/torch/sdebnn_toy1d.py --output_dir <dst_path>
 > Arbitrarily expression approximate posteriors from learning non-Gaussian marginals.
 
 #### Image Classification:
-All hyperparameters can be found in the training script. Train with adjoint for memory efficient backpropagation and adaptive mode for adaptive computation.
+All hyperparameters can be found in the training script. Train with adjoint for memory efficient backpropagation and adaptive mode for adaptive computation (and ensure `--adjoint_adaptive True` if training with adjoint and adaptive modes).
 ```
 python examples/torch/sdebnn_classification.py --train-dir <output directory> --data cifar10 --dt 0.05 --method midpoint --adjoint True --adaptive True --adjoint_adaptive True --inhomogeneous True
 ```
 
 ## References
-[1] Winnie Xu, Ricky T. Q. Chen, Xuechen Li, David Duvenaud. "Infinitely Deep Bayesian Neural Networks with Stochastic Differential Equations." *Preprint* 2021. [[arxiv]](https://winniexu.ca/research/Infinitely_Deep_BNNs_with_SDEs.pdf)
+[1] Winnie Xu, Ricky T. Q. Chen, Xuechen Li, David Duvenaud. "Infinitely Deep Bayesian Neural Networks with Stochastic Differential Equations." *Preprint* 2021. [[arxiv]](http://arxiv.org/abs/2102.06559)
 
 [2] Xuechen Li, Ting-Kam Leonard Wong, Ricky T. Q. Chen, David Duvenaud. "Scalable Gradients for Stochastic Differential Equations." *AISTATS* 2020. [[arxiv]](https://arxiv.org/abs/2001.01328)
 
