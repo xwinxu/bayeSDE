@@ -1,5 +1,7 @@
 # Infinitely Deep Bayesian Neural Networks with SDEs
 
+[![arXiv](https://img.shields.io/badge/arXiv-2106.02584-b31b1b.svg)](https://arxiv.org/abs/2102.06559)
+
 This library contains JAX and Pytorch implementations of neural ODEs and Bayesian layers for stochastic variational inference. 
 A rudimentary JAX implementation of differentiable SDE solvers is also provided, refer to [torchsde](https://github.com/google-research/torchsde) [2]
 for a full set of differentiable SDE solvers in Pytorch and similarly to [torchdiffeq](https://github.com/rtqichen/torchdiffeq) [3] for differentiable ODE solvers.
