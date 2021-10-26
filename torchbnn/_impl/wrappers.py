@@ -11,10 +11,10 @@ class DiffEqWrapper(nn.Module):
         self.module = module
 
     def forward(self, t, y):
-        if len(signature(self.module.forward).parameters) == 1:
-            return self.module(y)
-        elif len(signature(self.module.forward).parameters) == 2:
-            return self.module(t, y)
+        if "t" in signature(self.module.forward).parameters:
+            return self.module.forward(t, y)
+        elif "y" in signature(self.module.forward).parameters:
+            return self.module.forward(y)
         else:
             raise ValueError("Differential equation needs to either take (t, y) or (y,) as input.")
 
