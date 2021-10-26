@@ -9,6 +9,8 @@ import matplotlib._color_data as mcd
 import matplotlib.pyplot as plt
 import numpy as np
 import torchbnn._impl.diffeq_layers as diffeq_layers
+import torchbnn._impl.basic as basic_layers
+import torchbnn._impl.container as container_layers
 
 import torch
 import torch.nn as nn
@@ -34,9 +36,9 @@ def construct_odenet(dims):
     layers = []
     for in_dim, out_dim in zip(dims[:-1], dims[1:]):
         layers.append(diffeq_layers.ConcatLinear(in_dim, out_dim))
-        layers.append(diffeq_layers.TimeDependentSwish(out_dim))
+        layers.append(basic_layers.TimeDependentSwish(out_dim))
     layers = layers[:-1]  # remove last activation
-    return diffeq_layers.SequentialDiffEq(*layers)
+    return container_layers.SequentialDiffEq(*layers)
 
 
 class VariationalSDE(nn.Module):
