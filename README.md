@@ -56,6 +56,12 @@ If memory constraints pose a problem, train in gradient accumulation mode: `--ac
 
 > Samples from SDEBNN-learned predictive prior and posterior density distributions.
 
+<p align="center">
+<img align="middle" src="./assets/stl.png" width="500" />
+<!-- <figcaption>Arbitrarily low-variance gradient estimator.</figcaption> -->
+</p>
+
+
 ### Usage
 All examples can be swapped in with different vision datasets. For better readability, tensorboard logging has been excluded (see `torchbnn` instead).
 
