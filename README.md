@@ -113,7 +113,7 @@ If you found this library useful in your research, please consider citing
 @article{xu2021sdebnn,
   title={Infinitely Deep Bayesian Neural Networks with Stochastic Differential Equations},
   author={Xu, Winnie and Chen, Ricky T. Q. and Li, Xuechen and Duvenaud, David},
-  archivePrefix = {arXiv},
-  year={2021}
+  journal = {International Conference on Artificial Intelligence and Statistics},
+  year={2022}
 }
 ```
